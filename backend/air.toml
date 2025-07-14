@@ -1,0 +1,15 @@
+root = "."
+tmp_dir = "tmp"
+
+[build]
+  cmd = "go build -o ./tmp/main ."
+  bin = "tmp/main"
+  delay = 200
+  exclude_dir = ["frontend", "tmp", "node_modules"]
+  include_ext = ["go", "tpl", "tmpl"]
+  exclude_file = ["*_test.go"]
+  log = "air.log"
+  send_interrupt = true
+
+[log]
+  time = true

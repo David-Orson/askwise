@@ -1,0 +1,22 @@
+.env
+
+# frontend
+./frontend/node_modules/
+./frontend/dist/
+./frontend/.vite/
+
+# backend
+./backend/.env
+./backend/tmp/
+./backend/air.log
+
+# python
+./chatbot/__pycache__/
+./chatbot/*.pyc
+./chatbot/.venv/
+
+# editors
+.DS_Store
+.idea/
+.vscode/
+*.log

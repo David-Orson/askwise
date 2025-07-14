@@ -1,0 +1,36 @@
+name: Deploy to GCP Cloud Run
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Google Cloud CLI
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Auth Docker to Google Cloud
+        run: gcloud auth configure-docker
+
+      - name: Build and Push Docker image
+        run: |
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/askwise-backend ./backend
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/askwise-backend
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy askwise-backend \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/askwise-backend \
+            --platform managed \
+            --region us-central1 \
+            --allow-unauthenticated \
+            --port 8080
