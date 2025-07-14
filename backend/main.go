@@ -51,7 +51,7 @@ func main() {
 		_ = godotenv.Load()
 	}
 
-	db := connectDB()
+	// db := connectDB()
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("AskWise backend running.")
@@ -61,14 +61,16 @@ func main() {
 		return c.SendString("pong from backend 🚀")
 	})
 
-	app.Get("/api/db-ping", func(c *fiber.Ctx) error {
-		sqlDB, _ := db.DB()
-		err := sqlDB.Ping()
-		if err != nil {
-			return c.Status(500).SendString("DB connection failed: " + err.Error())
-		}
-		return c.SendString("Connected to Postgres ✅")
-	})
+	/*
+		app.Get("/api/db-ping", func(c *fiber.Ctx) error {
+			sqlDB, _ := db.DB()
+			err := sqlDB.Ping()
+			if err != nil {
+				return c.Status(500).SendString("DB connection failed: " + err.Error())
+			}
+			return c.SendString("Connected to Postgres ✅")
+		})
+	*/
 
 	port := os.Getenv("PORT")
 	if port == "" {
