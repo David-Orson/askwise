@@ -16,14 +16,17 @@ func connectDB() *gorm.DB {
 	var db *gorm.DB
 	var err error
 
-	dsn := fmt.Sprintf(
-		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_NAME"),
-		os.Getenv("DB_PORT"),
-	)
+	host := os.Getenv("DB_HOST")
+	user := os.Getenv("DB_USER")
+	pass := os.Getenv("DB_PASSWORD")
+	name := os.Getenv("DB_NAME")
+	port := os.Getenv("DB_PORT")
+
+	if host == "" || user == "" || pass == "" || name == "" || port == "" {
+		log.Fatalf("Missing one or more DB env vars: host=%s user=%s dbname=%s port=%s", host, user, name, port)
+	}
+
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", host, user, pass, name, port)
 
 	maxRetries := 10
 	for retries := 1; retries <= maxRetries; retries++ {
@@ -44,10 +47,8 @@ func connectDB() *gorm.DB {
 func main() {
 	app := fiber.New()
 
-	// Load .env file
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("No .env file found — falling back to environment variables")
+	if os.Getenv("ENV") == "development" {
+		_ = godotenv.Load()
 	}
 
 	db := connectDB()
