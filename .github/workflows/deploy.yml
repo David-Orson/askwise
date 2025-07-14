@@ -23,17 +23,17 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Configure Docker
-        run: gcloud auth configure-docker
+        run: gcloud auth configure-docker europe-west2-docker.pkg.dev
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/askwise-backend ./backend
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/askwise-backend
+          docker build -t europe-west2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/askwise-artifacts/askwise-backend ./backend
+          docker push europe-west2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/askwise-artifacts/askwise-backend
 
       - name: Deploy to Cloud Run
         run: |
           gcloud run deploy askwise-backend \
-            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/askwise-backend \
+            --image europe-west2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/askwise-artifacts/askwise-backend \
             --platform managed \
             --region us-central1 \
             --allow-unauthenticated \
