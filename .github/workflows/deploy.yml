@@ -36,5 +36,6 @@ jobs:
             --image europe-west2-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/askwise-artifacts/askwise-backend \
             --platform managed \
             --region us-central1 \
+            --project ${{ secrets.GCP_PROJECT_ID }} \
             --allow-unauthenticated \
             --port 8080

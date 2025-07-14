@@ -53,6 +53,10 @@ func main() {
 
 	db := connectDB()
 
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("AskWise backend running.")
+	})
+
 	app.Get("/api/ping", func(c *fiber.Ctx) error {
 		return c.SendString("pong from backend 🚀")
 	})
