@@ -1,0 +1,31 @@
+{
+  "name": "askwise",
+  "version": "1.0.0",
+  "description": "**AskWise** is an AI-powered knowledge base SaaS platform that allows teams to upload internal documents and query them using natural language. It simulates a production-grade system at scale (100k users) and is designed to demonstrate full-stack engineering, DevOps, AI integration, and data engineering capability.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"WARN: no npm test specified\"",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/David-Orson/askwise.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/David-Orson/askwise/issues"
+  },
+  "homepage": "https://github.com/David-Orson/askwise#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "commitlint": "^19.8.1",
+    "husky": "^9.1.7"
+  }
+}
