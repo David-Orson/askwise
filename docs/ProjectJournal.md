@@ -54,3 +54,29 @@
   ```
 
 ---
+
+## 📅 2025-07-16 — Frontend Redeployed with TypeScript + Firebase
+
+**Goal:** Rebuild the frontend with TypeScript and deploy it to Firebase Hosting.
+
+---
+
+### ✅ What Worked
+
+- Replaced previous JS frontend with Vite + React + TypeScript setup
+- Connected frontend to backend via `VITE_API_URL` env var
+- Updated backend to include CORS headers (allow Firebase-hosted frontend)
+- Deployed static frontend to Firebase
+
+---
+
+### ⚙️ Tech Decisions
+
+- Used `.env` for local dev, `.env.production` for Firebase builds
+- Used `fetch()` with `${import.meta.env.VITE_API_URL}` instead of hardcoding base URLs
+
+---
+
+### 🔗 Result
+
+Frontend app now **successfully fetches backend `/api/ping`** via Cloud Run from Firebase.
