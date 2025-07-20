@@ -46,3 +46,11 @@
 - ✅ Working client-to-backend ping request
 
 ---
+
+## [0.1.3] - 2025-07-20
+
+### Fixed
+
+- 🔐 Updated backend CORS config to allow requests from deployed Firebase frontend
+
+---
