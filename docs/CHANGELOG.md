@@ -54,3 +54,10 @@
 - 🔐 Updated backend CORS config to allow requests from deployed Firebase frontend
 
 ---
+
+## [0.1.4] - 2025-07-20
+
+### Changed
+
+- 🛠️ Added Firebase deploy to CI/CD workflow
+- 🔧 Updated GitHub Actions to build & deploy frontend on push to `main`
