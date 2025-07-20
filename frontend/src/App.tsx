@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 
+const API_BASE = import.meta.env.VITE_API_URL || "";
+
 function App() {
   const [ping, setPing] = useState("...");
 
   useEffect(() => {
-    fetch("/api/ping")
+    console.log("API_BASE:", API_BASE);
+    fetch(`${API_BASE}/api/ping`)
       .then((res) => res.text())
       .then(setPing)
       .catch((err) => setPing("Error: " + err.message));

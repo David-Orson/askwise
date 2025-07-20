@@ -27,3 +27,22 @@
   - Frontend and backend build artifacts
 
 ---
+
+## [0.1.2] - 2025-07-16
+
+### Changed
+
+- 🔁 Rebuilt frontend using **Vite + TypeScript** for better DX and long-term maintainability
+- 🔄 Updated environment variable handling using `.env` and `.env.production`
+- 🔄 Refactored frontend `App.tsx` to pull API base URL from `VITE_API_URL`
+
+### Fixed
+
+- 🛠️ CORS headers enabled in backend to allow frontend → backend communication
+
+### Deployed
+
+- 🚀 Frontend deployed to Firebase Hosting
+- ✅ Working client-to-backend ping request
+
+---

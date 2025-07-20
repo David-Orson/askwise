@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -50,6 +51,11 @@ func main() {
 	if os.Getenv("ENV") == "development" {
 		_ = godotenv.Load()
 	}
+
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:5173", // or "*"
+		AllowHeaders: "Origin, Content-Type, Accept",
+	}))
 
 	// db := connectDB()
 
