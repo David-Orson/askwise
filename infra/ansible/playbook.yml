@@ -1,0 +1,52 @@
+---
+- name: Setup K3s Cluster on GCP VM
+  hosts: all
+  become: yes
+
+  vars:
+    k3s_version: "v1.28.4+k3s1"
+
+  tasks:
+    - name: Install dependencies
+      apt:
+        name:
+          - curl
+          - gnupg
+          - apt-transport-https
+          - ca-certificates
+          - software-properties-common
+          - docker.io
+        state: present
+        update_cache: true
+
+    - name: Enable and start Docker
+      systemd:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: Install K3s
+      shell: |
+        curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION={{ k3s_version }} sh -
+      args:
+        creates: /usr/local/bin/k3s
+
+    - name: Wait for K3s to be ready
+      shell: kubectl get nodes
+      retries: 10
+      delay: 5
+      register: result
+      until: result.rc == 0
+
+    - name: Install Helm
+      shell: |
+        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+    - name: Add Prometheus Helm repo
+      shell: helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && helm repo update
+
+    - name: Install Prometheus
+      shell: helm install prometheus prometheus-community/prometheus --namespace monitoring --create-namespace
+
+    - name: Install Grafana
+      shell: helm install grafana prometheus-community/grafana --namespace monitoring
