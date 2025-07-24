@@ -64,36 +64,29 @@
 
 ---
 
-[0.1.5] - 2025-07-24
+## [0.1.5] - 2025-07-24
+
 Changed
-🧹 Removed legacy React + Vite frontend
 
-🔄 Rebuilt frontend using Next.js App Router
-
-Integrated Tailwind CSS and configured PostCSS
-
-Added shadcn/ui, lucide-react, class-variance-authority, and tailwind-variants
-
-Setup layout structure with app/, components/, lib/, and styles/
-
-Introduced Zustand and React Query for state/data management
+- 🧹 Removed legacy React + Vite frontend
+- 🔄 Rebuilt frontend using Next.js App Router
+- Integrated Tailwind CSS and configured PostCSS
+- Added shadcn/ui, lucide-react, class-variance-authority, and tailwind-variants
+- Setup layout structure with app/, components/, lib/, and styles/
+- Introduced Zustand and React Query for state/data management
 
 Added
-🎨 Created a full-featured landing page:
 
-Responsive hero section with CTA
-
-"How it works" walkthrough
-
-Feature highlights with reusable <FeatureCard />
-
-Fake testimonials and modern footer
-
-🚀 Set up Vercel as frontend hosting provider (CI/CD via GitHub + Vercel integration)
-
-🧾 Created deploy-backend.yml for backend-only Cloud Run deploy pipeline
+- 🎨 Created a full-featured landing page:
+- Responsive hero section with CTA
+- "How it works" walkthrough
+- Feature highlights with reusable <FeatureCard />
+- Fake testimonials and modern footer
+- 🚀 Set up Vercel as frontend hosting provider (CI/CD via GitHub + Vercel integration)
+- 🧾 Created deploy-backend.yml for backend-only Cloud Run deploy pipeline
 
 Removed
-🔥 Removed Firebase Hosting deploy from CI/CD workflow
+
+- 🔥 Removed Firebase Hosting deploy from CI/CD workflow
 
 ---
