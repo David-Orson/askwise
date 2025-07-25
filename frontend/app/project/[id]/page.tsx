@@ -4,8 +4,12 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-export default function ProjectPage({ params }: { params: { id: string } }) {
-  const projectId = params.id;
+interface ProjectPageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { id: projectId } = await params;
 
   const project = {
     id: projectId,
