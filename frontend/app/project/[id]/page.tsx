@@ -8,8 +8,8 @@ type Props = {
   params: { id: string };
 };
 
-export default async function ProjectPage({ params }: Props) {
-  const { id: projectId } = await Promise.resolve(params);
+export default function ProjectPage({ params }: Props) {
+  const projectId = params.id;
 
   const project = {
     id: projectId,
