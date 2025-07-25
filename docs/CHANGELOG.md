@@ -90,3 +90,20 @@ Removed
 - 🔥 Removed Firebase Hosting deploy from CI/CD workflow
 
 ---
+
+## [0.1.6] - 2025-07-25
+
+### Added
+
+- 🔐 Integrated NextAuth.js with Google OAuth
+- 👤 Protected `/dashboard` and `/project/[id]` routes behind authentication
+- 🧭 Created authenticated dashboard layout showing sample projects
+- 📁 Created project page view with document list and AI query input
+- ⬅️ Added "Back to dashboard" navigation with Lucide icon
+
+### Changed
+
+- ⚙️ Fixed server-side dynamic route usage with `await` on `params` for Next.js App Router
+- 📦 Improved mobile layout + spacing consistency across homepage and dashboard
+
+---

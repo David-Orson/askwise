@@ -4,11 +4,7 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-type Props = {
-  params: { id: string };
-};
-
-export default function ProjectPage({ params }: Props) {
+export default function ProjectPage({ params }: { params: { id: string } }) {
   const projectId = params.id;
 
   const project = {

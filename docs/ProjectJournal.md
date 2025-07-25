@@ -80,3 +80,45 @@
 ### 🔗 Result
 
 Frontend app now **successfully fetches backend `/api/ping`** via Cloud Run from Firebase.
+
+---
+
+## 📅 2025-07-25 — Frontend Auth + Dashboard Bootstrapped
+
+**Goal:** Add Google Sign-In and authenticated user flow
+
+---
+
+### ✅ What Worked
+
+- Added `next-auth` and configured Google Provider via `.env.local`
+- Created `lib/auth.ts` with reusable `authOptions`
+- Protected authenticated routes (`/dashboard`, `/project/[id]`) using `getServerSession()`
+- Added SessionProvider to `RootLayout` for auth-aware context
+- Verified JWT and tested login in both local and deployed Vercel environment
+
+---
+
+### 🧱 Features Implemented
+
+- 🌐 Project list with fake sample data on dashboard
+- 📄 Individual project page with mock document list
+- ❓ Question input to simulate AI chat interaction
+- ⬅️ Back button from project → dashboard (using `ArrowLeft` icon)
+
+---
+
+### 🐛 Gotchas
+
+- ❌ `params.id` used synchronously in server component (triggered Next.js warning)
+  ✅ Fixed by `await`ing `params` destructure properly
+- ❌ Login flow failed with `redirect_uri_mismatch`
+  ✅ Resolved by updating OAuth Client to match Vercel domain
+
+---
+
+### 🧩 Next Goals
+
+- Design DB schema to store projects, users, documents
+- Add `/api/projects` and `/api/projects/:id/upload`
+- Begin wiring frontend actions to backend Go API
