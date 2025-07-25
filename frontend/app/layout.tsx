@@ -1,7 +1,8 @@
 import "@/styles/globals.css";
-import { ReactQueryProvider } from "@/lib/react-query-provider";
+import { Providers } from "@/components/Providers";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "AskWise",
   description: "Document Q&A SaaS",
 };
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
