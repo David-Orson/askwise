@@ -14,10 +14,10 @@
 
 ### Added
 
-- ✅ Set up commit message linting with `commitlint` and `husky`
+- Set up commit message linting with `commitlint` and `husky`
   - Enforced [Conventional Commit](https://www.conventionalcommits.org/) standard on commits via `commit-msg` hook
-- ✅ Added `commitlint.config.js` with `@commitlint/config-conventional`
-- ✅ Installed `husky` with `prepare` script and `.husky/commit-msg` hook
+- Added `commitlint.config.js` with `@commitlint/config-conventional`
+- Installed `husky` with `prepare` script and `.husky/commit-msg` hook
 
 ### Changed
 
@@ -32,18 +32,18 @@
 
 ### Changed
 
-- 🔁 Rebuilt frontend using **Vite + TypeScript** for better DX and long-term maintainability
-- 🔄 Updated environment variable handling using `.env` and `.env.production`
-- 🔄 Refactored frontend `App.tsx` to pull API base URL from `VITE_API_URL`
+- Rebuilt frontend using **Vite + TypeScript** for better DX and long-term maintainability
+- Updated environment variable handling using `.env` and `.env.production`
+- Refactored frontend `App.tsx` to pull API base URL from `VITE_API_URL`
 
 ### Fixed
 
-- 🛠️ CORS headers enabled in backend to allow frontend → backend communication
+- CORS headers enabled in backend to allow frontend → backend communication
 
 ### Deployed
 
-- 🚀 Frontend deployed to Firebase Hosting
-- ✅ Working client-to-backend ping request
+- Frontend deployed to Firebase Hosting
+- Working client-to-backend ping request
 
 ---
 
@@ -51,7 +51,7 @@
 
 ### Fixed
 
-- 🔐 Updated backend CORS config to allow requests from deployed Firebase frontend
+- Updated backend CORS config to allow requests from deployed Firebase frontend
 
 ---
 
@@ -59,8 +59,8 @@
 
 ### Changed
 
-- 🛠️ Added Firebase deploy to CI/CD workflow
-- 🔧 Updated GitHub Actions to build & deploy frontend on push to `main`
+- Added Firebase deploy to CI/CD workflow
+- Updated GitHub Actions to build & deploy frontend on push to `main`
 
 ---
 
@@ -68,8 +68,8 @@
 
 Changed
 
-- 🧹 Removed legacy React + Vite frontend
-- 🔄 Rebuilt frontend using Next.js App Router
+- Removed legacy React + Vite frontend
+- Rebuilt frontend using Next.js App Router
 - Integrated Tailwind CSS and configured PostCSS
 - Added shadcn/ui, lucide-react, class-variance-authority, and tailwind-variants
 - Setup layout structure with app/, components/, lib/, and styles/
@@ -77,17 +77,17 @@ Changed
 
 Added
 
-- 🎨 Created a full-featured landing page:
+- Created a full-featured landing page:
 - Responsive hero section with CTA
 - "How it works" walkthrough
 - Feature highlights with reusable <FeatureCard />
 - Fake testimonials and modern footer
-- 🚀 Set up Vercel as frontend hosting provider (CI/CD via GitHub + Vercel integration)
-- 🧾 Created deploy-backend.yml for backend-only Cloud Run deploy pipeline
+- Set up Vercel as frontend hosting provider (CI/CD via GitHub + Vercel integration)
+- Created deploy-backend.yml for backend-only Cloud Run deploy pipeline
 
 Removed
 
-- 🔥 Removed Firebase Hosting deploy from CI/CD workflow
+- Removed Firebase Hosting deploy from CI/CD workflow
 
 ---
 
@@ -95,16 +95,16 @@ Removed
 
 ### Added
 
-- 🔐 Integrated NextAuth.js with Google OAuth
-- 👤 Protected `/dashboard` and `/project/[id]` routes behind authentication
-- 🧭 Created authenticated dashboard layout showing sample projects
-- 📁 Created project page view with document list and AI query input
-- ⬅️ Added "Back to dashboard" navigation with Lucide icon
+- Integrated NextAuth.js with Google OAuth
+- Protected `/dashboard` and `/project/[id]` routes behind authentication
+- Created authenticated dashboard layout showing sample projects
+- Created project page view with document list and AI query input
+- Added "Back to dashboard" navigation with Lucide icon
 
 ### Changed
 
-- ⚙️ Fixed server-side dynamic route usage with `await` on `params` for Next.js App Router
-- 📦 Improved mobile layout + spacing consistency across homepage and dashboard
+- Fixed server-side dynamic route usage with `await` on `params` for Next.js App Router
+- Improved mobile layout + spacing consistency across homepage and dashboard
 
 ---
 
@@ -112,20 +112,20 @@ Removed
 
 ### Added
 
-- 🧠 Built full Go backend with Fiber, GORM, and Neon (Postgres)
-- 🛤️ Defined core data models: `User`, `Project`, `Document`, `Question`, `Answer`
-- 🔐 Created JWT-based auth middleware with claim extraction (via Google OAuth `sub` or `email`)
-- 🔄 Added `/auth/sync` endpoint to persist users after frontend login
-- ✅ Connected frontend session (via NextAuth) to backend user creation
-- 🗂️ Created `POST /api/projects` and `GET /api/projects` with per-user filtering
-- 🧪 Wrote middleware to verify and inject user claims into route context
-- 🧾 Used custom `GoogleID` field to map external identities to internal UUIDs
+- Built full Go backend with Fiber, GORM, and Neon (Postgres)
+- Defined core data models: `User`, `Project`, `Document`, `Question`, `Answer`
+- Created JWT-based auth middleware with claim extraction (via Google OAuth `sub` or `email`)
+- Added `/auth/sync` endpoint to persist users after frontend login
+- Connected frontend session (via NextAuth) to backend user creation
+- Created `POST /api/projects` and `GET /api/projects` with per-user filtering
+- Wrote middleware to verify and inject user claims into route context
+- Used custom `GoogleID` field to map external identities to internal UUIDs
 
 ### Changed
 
-- 🧼 Replaced `DebugUserID` with dynamic user resolution via JWT/email
-- 🧱 Updated all project routes to respect authenticated user scope
-- 🛑 Improved error handling and response codes across backend:
+- Replaced `DebugUserID` with dynamic user resolution via JWT/email
+- Updated all project routes to respect authenticated user scope
+- Improved error handling and response codes across backend:
   - `400` for bad input
   - `409` for existing users
   - `401` for unauthenticated access
@@ -133,12 +133,34 @@ Removed
 
 ### Fixed
 
-- ♻️ Infinite sync loop on login by guarding mutation with `useRef`
-- 🚫 CORS crash on authorized request (replaced `*` with specific allowed origins)
+- Infinite sync loop on login by guarding mutation with `useRef`
+- CORS crash on authorized request (replaced `*` with specific allowed origins)
 
 ### DevOps
 
-- 🔧 Added new backend route groups: `/auth`, `/api`, `/public`
-- 🚀 Ready for production deploy via Cloud Run backend + Vercel frontend
+- Added new backend route groups: `/auth`, `/api`, `/public`
+- Ready for production deploy via Cloud Run backend + Vercel frontend
+
+---
+
+## 0.1.8 - 2025-07-26
+
+### Added
+
+- Created modular document/ service using Hexagonal architecture
+- Defined Document domain model with encapsulated fields and base metadata
+- Added PostgresDocumentRepository implementing domain DocumentRepository port
+- Built UploadDocument() application service to create + persist documents
+- Emitted document.uploaded events via Redis Stream using EventBus abstraction
+- Created Redis-backed EventBus with Publish() and Subscribe() support
+- Connected HTTP upload route to backend logic using Fiber
+- Defined DocumentResponse DTO + mapper in presentation layer
+- Wrote unit tests for DocumentService.UploadDocument() using mocked ports
+
+### Changed
+
+- Refined domain encapsulation: made projectID, userID, fileName private with getters
+- Split responsibilities cleanly across domain, application, handler, and adapters
+- Enforced strict layering between core logic and infrastructure via interfaces
 
 ---

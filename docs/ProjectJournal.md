@@ -4,15 +4,11 @@
 
 **Goal:** Deploy the backend service to GCP Cloud Run via GitHub Actions.
 
----
-
 ### ✅ What Worked
 
 - Backend container built successfully via GitHub Actions.
 - Docker image pushed to **Artifact Registry** (`europe-west2-docker.pkg.dev`).
 - Service deployed to Cloud Run (`askwise-backend`).
-
----
 
 ### 🧱 Key Steps
 
@@ -29,8 +25,6 @@
 - Updated the GitHub Actions workflow to:
   - Use Artifact Registry region-specific path
   - Reference the new project ID and service account
-
----
 
 ## 🐛 Issues Faced
 
@@ -59,8 +53,6 @@
 
 **Goal:** Rebuild the frontend with TypeScript and deploy it to Firebase Hosting.
 
----
-
 ### ✅ What Worked
 
 - Replaced previous JS frontend with Vite + React + TypeScript setup
@@ -68,14 +60,10 @@
 - Updated backend to include CORS headers (allow Firebase-hosted frontend)
 - Deployed static frontend to Firebase
 
----
-
 ### ⚙️ Tech Decisions
 
 - Used `.env` for local dev, `.env.production` for Firebase builds
 - Used `fetch()` with `${import.meta.env.VITE_API_URL}` instead of hardcoding base URLs
-
----
 
 ### 🔗 Result
 
@@ -87,8 +75,6 @@ Frontend app now **successfully fetches backend `/api/ping`** via Cloud Run from
 
 **Goal:** Add Google Sign-In and authenticated user flow
 
----
-
 ### ✅ What Worked
 
 - Added `next-auth` and configured Google Provider via `.env.local`
@@ -97,16 +83,12 @@ Frontend app now **successfully fetches backend `/api/ping`** via Cloud Run from
 - Added SessionProvider to `RootLayout` for auth-aware context
 - Verified JWT and tested login in both local and deployed Vercel environment
 
----
-
 ### 🧱 Features Implemented
 
-- 🌐 Project list with fake sample data on dashboard
-- 📄 Individual project page with mock document list
-- ❓ Question input to simulate AI chat interaction
-- ⬅️ Back button from project → dashboard (using `ArrowLeft` icon)
-
----
+- Project list with fake sample data on dashboard
+- Individual project page with mock document list
+- Question input to simulate AI chat interaction
+- Back button from project → dashboard (using `ArrowLeft` icon)
 
 ### 🐛 Gotchas
 
@@ -114,8 +96,6 @@ Frontend app now **successfully fetches backend `/api/ping`** via Cloud Run from
   ✅ Fixed by `await`ing `params` destructure properly
 - ❌ Login flow failed with `redirect_uri_mismatch`
   ✅ Resolved by updating OAuth Client to match Vercel domain
-
----
 
 ### 🧩 Next Goals
 
@@ -129,8 +109,6 @@ Frontend app now **successfully fetches backend `/api/ping`** via Cloud Run from
 
 **Goal:** Connect frontend Google login to actual backend user persistence and enable real project creation.
 
----
-
 ### ✅ What Worked
 
 - Created core Go backend with Fiber + GORM + Postgres (Neon)
@@ -141,16 +119,12 @@ Frontend app now **successfully fetches backend `/api/ping`** via Cloud Run from
 - Hooked up frontend React Query `useSyncUser()` to fire after login
 - Confirmed real user is persisted (UUID + Google `sub`) in DB
 
----
-
 ### 🧱 Features Implemented
 
-- 👤 Dynamic user sync (creates user on first login)
-- 🗂️ Created project API (`/api/projects`)
-- 🔒 Projects tied to specific user via backend-side filtering
-- 🔐 JWT middleware verifies signature using shared `NEXTAUTH_SECRET`
-
----
+- Dynamic user sync (creates user on first login)
+- Created project API (`/api/projects`)
+- Projects tied to specific user via backend-side filtering
+- JWT middleware verifies signature using shared `NEXTAUTH_SECRET`
 
 ### 🐛 Gotchas
 
@@ -163,11 +137,47 @@ Frontend app now **successfully fetches backend `/api/ping`** via Cloud Run from
 - ❌ Infinite React Query sync loop after error
   ✅ Prevented with `useRef` + `onError` fallback
 
----
-
 ### 🚀 Next Goals
 
 - Hook up real file upload and document metadata endpoint
 - Add `useCreateProject()` and connect "New Project" UI
 - Begin chunking + embedding pipeline for uploaded documents
 - Store embeddings in Neon with PGVector
+
+---
+
+## 📅 2025-07-26 — Document Upload + Eventing Pipeline Bootstrapped
+
+**Goal:** Enable the app to handle real document uploads and emit events for async processing.
+
+### ✅ What Worked
+
+- Built out a clean hexagonal structure for `Document` use case
+- Defined clear boundaries between core logic and Redis adapter
+- Used Redis Streams (via `go-redis`) to emit `document.uploaded` events
+- Added mock-based unit tests with `testify` to validate service behavior
+- Fully decoupled event emission from business logic
+
+### 🧩 Features Implemented
+
+- Uploads documents and persists metadata
+- Emits events for downstream workers to consume
+- Application service orchestrates logic, emits rich domain events
+- Strong test coverage with mocked repository and event bus
+
+### 🧪 Known Gaps / Next Steps
+
+- Chunker worker not yet implemented (next!)
+- No DB schema yet for document chunks or embeddings
+- No file persistence or actual PDF reading (still just filename)
+- `Project` module exists in UI and DB, but has no Go backing yet
+- `UploadDocument()` does not yet persist the file itself
+
+## 🚀 Next Goals
+
+- Build `chunker_worker.go` to listen to `document.uploaded` events
+- Extract real content from uploaded PDFs and chunk into paragraphs
+- Embed chunks using OpenAI or local tokenizer
+- Persist embeddings into Neon (PGVector)
+- Add file storage support (GCS or local tmp)
+- Begin `GET /api/projects/:id/documents` route
