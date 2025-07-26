@@ -6,10 +6,10 @@ import (
 	"os"
 
 	"askwise.com/m/v2/routes"
+	"askwise.com/m/v2/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
-	"gorm.io/gorm"
 )
 
 func main() {
@@ -23,15 +23,14 @@ func main() {
 		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
 	}))
 
-	// db := utils.ConnectDB()
-	db := gorm.DB{}
+	db := utils.ConnectDB()
 
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 
-	routes.Register(app, &db)
+	routes.Register(app, db)
 
 	fmt.Printf("Starting server on port %s\n", port)
 	log.Fatal(app.Listen(":" + port))
