@@ -122,3 +122,52 @@ Frontend app now **successfully fetches backend `/api/ping`** via Cloud Run from
 - Design DB schema to store projects, users, documents
 - Add `/api/projects` and `/api/projects/:id/upload`
 - Begin wiring frontend actions to backend Go API
+
+---
+
+## 📅 2025-07-26 — Backend API + Auth Sync Complete
+
+**Goal:** Connect frontend Google login to actual backend user persistence and enable real project creation.
+
+---
+
+### ✅ What Worked
+
+- Created core Go backend with Fiber + GORM + Postgres (Neon)
+- Defined clean REST API grouping (`/auth`, `/api`, `/public`)
+- Implemented robust user sync endpoint: `POST /auth/sync`
+- Used JWT Bearer tokens (via NextAuth session) to pass user identity securely
+- Created middleware to parse JWT, extract `email`, and inject context
+- Hooked up frontend React Query `useSyncUser()` to fire after login
+- Confirmed real user is persisted (UUID + Google `sub`) in DB
+
+---
+
+### 🧱 Features Implemented
+
+- 👤 Dynamic user sync (creates user on first login)
+- 🗂️ Created project API (`/api/projects`)
+- 🔒 Projects tied to specific user via backend-side filtering
+- 🔐 JWT middleware verifies signature using shared `NEXTAUTH_SECRET`
+
+---
+
+### 🐛 Gotchas
+
+- ❌ Using `userID` from Google directly → caused UUID mismatch in DB
+  ✅ Resolved by introducing `GoogleID` field in user model
+
+- ❌ CORS rejected authorized frontend request
+  ✅ Fixed by replacing `*` with real frontend origin(s)
+
+- ❌ Infinite React Query sync loop after error
+  ✅ Prevented with `useRef` + `onError` fallback
+
+---
+
+### 🚀 Next Goals
+
+- Hook up real file upload and document metadata endpoint
+- Add `useCreateProject()` and connect "New Project" UI
+- Begin chunking + embedding pipeline for uploaded documents
+- Store embeddings in Neon with PGVector

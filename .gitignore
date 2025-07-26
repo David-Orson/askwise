@@ -1,25 +1,39 @@
-# root
+
+# Root
 .env
-node_modules/
-
-# frontend
-./frontend/node_modules/
-./frontend/dist/
-./frontend/.vite/
-./frontend/.env.production
-
-# backend
-./backend/.env
-./backend/tmp/
-./backend/air.log
-
-# python
-./chatbot/__pycache__/
-./chatbot/*.pyc
-./chatbot/.venv/
-
-# editors
+*.log
 .DS_Store
 .idea/
 .vscode/
+node_modules/
+
+# Frontend (Next.js)
+frontend/.next/
+frontend/.turbo/
+frontend/.vercel/
+frontend/node_modules/
+frontend/.env.local
+frontend/.env.production
+frontend/dist/
+frontend/.vite/
+
+# Backend
+backend/.env
+backend/tmp/
+backend/air.log
+backend/node_modules/
+
+# Python chatbot
+chatbot/__pycache__/
+chatbot/*.pyc
+chatbot/.venv/
+
+# Build artifacts
 *.log
+*.cache
+*.swp
+
+# OS + Editor noise
+.DS_Store
+Thumbs.db
+

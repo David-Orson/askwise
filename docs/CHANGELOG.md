@@ -107,3 +107,38 @@ Removed
 - 📦 Improved mobile layout + spacing consistency across homepage and dashboard
 
 ---
+
+## [0.1.7] - 2025-07-26
+
+### Added
+
+- 🧠 Built full Go backend with Fiber, GORM, and Neon (Postgres)
+- 🛤️ Defined core data models: `User`, `Project`, `Document`, `Question`, `Answer`
+- 🔐 Created JWT-based auth middleware with claim extraction (via Google OAuth `sub` or `email`)
+- 🔄 Added `/auth/sync` endpoint to persist users after frontend login
+- ✅ Connected frontend session (via NextAuth) to backend user creation
+- 🗂️ Created `POST /api/projects` and `GET /api/projects` with per-user filtering
+- 🧪 Wrote middleware to verify and inject user claims into route context
+- 🧾 Used custom `GoogleID` field to map external identities to internal UUIDs
+
+### Changed
+
+- 🧼 Replaced `DebugUserID` with dynamic user resolution via JWT/email
+- 🧱 Updated all project routes to respect authenticated user scope
+- 🛑 Improved error handling and response codes across backend:
+  - `400` for bad input
+  - `409` for existing users
+  - `401` for unauthenticated access
+  - `500` for server-side errors
+
+### Fixed
+
+- ♻️ Infinite sync loop on login by guarding mutation with `useRef`
+- 🚫 CORS crash on authorized request (replaced `*` with specific allowed origins)
+
+### DevOps
+
+- 🔧 Added new backend route groups: `/auth`, `/api`, `/public`
+- 🚀 Ready for production deploy via Cloud Run backend + Vercel frontend
+
+---
