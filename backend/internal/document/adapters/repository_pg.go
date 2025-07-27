@@ -5,6 +5,7 @@ import (
 
 	"askwise.com/m/v2/internal/document/domain"
 	"askwise.com/m/v2/internal/document/ports"
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -17,13 +18,17 @@ func NewPostgresDocumentRepository(db *gorm.DB) ports.DocumentRepository {
 }
 
 func (r *PostgresDocumentRepository) Save(ctx context.Context, doc *domain.Document) error {
-	return r.db.WithContext(ctx).Create(doc).Error
+	record := toRecord(doc)
+	return r.db.WithContext(ctx).Create(record).Error
 }
 
-func (r *PostgresDocumentRepository) FindByID(ctx context.Context, id string) (*domain.Document, error) {
-	var doc domain.Document
-	if err := r.db.WithContext(ctx).First(&doc, "id = ?", id).Error; err != nil {
+func (r *PostgresDocumentRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.Document, error) {
+	var record DocumentRecord
+	if err := r.db.WithContext(ctx).First(&record, "id = ?", id).Error; err != nil {
 		return nil, err
 	}
-	return &doc, nil
+
+	doc := toDomain(&record)
+
+	return doc, nil
 }

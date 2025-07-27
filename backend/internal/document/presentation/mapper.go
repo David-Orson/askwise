@@ -11,6 +11,10 @@ type DocumentResponse struct {
 }
 
 func FromDomain(doc *domain.Document) DocumentResponse {
+	if doc == nil {
+		return DocumentResponse{}
+	}
+
 	return DocumentResponse{
 		ID:        doc.ID().String(),
 		FileName:  doc.FileName(),

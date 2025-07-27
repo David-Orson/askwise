@@ -17,8 +17,8 @@ const (
 
 type DocumentUploadedEvent struct {
 	DocumentID uuid.UUID `json:"document_id"`
-	ProjectID  string    `json:"project_id"`
-	UserID     string    `json:"user_id"`
+	ProjectID  uuid.UUID `json:"project_id"`
+	UserID     uuid.UUID `json:"user_id"`
 	FileName   string    `json:"file_name"`
 	UploadedAt string    `json:"uploaded_at"`
 }

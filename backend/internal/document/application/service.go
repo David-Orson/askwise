@@ -6,6 +6,7 @@ import (
 	"askwise.com/m/v2/internal/document/domain"
 	"askwise.com/m/v2/internal/document/ports"
 	"askwise.com/m/v2/internal/events"
+	"github.com/google/uuid"
 )
 
 type DocumentService struct {
@@ -17,8 +18,11 @@ func NewDocumentService(repo ports.DocumentRepository, bus ports.EventBus) *Docu
 	return &DocumentService{Repo: repo, Bus: bus}
 }
 
-func (s *DocumentService) UploadDocument(ctx context.Context, projectID, userID, fileName string) (*domain.Document, error) {
-	doc := domain.NewDocument(projectID, userID, fileName)
+func (s *DocumentService) UploadDocument(ctx context.Context, projectID, userID uuid.UUID, fileName string) (*domain.Document, error) {
+	doc, err := domain.NewDocument(projectID, userID, fileName)
+	if err != nil {
+		return nil, err
+	}
 
 	if err := s.Repo.Save(ctx, doc); err != nil {
 		return nil, err
