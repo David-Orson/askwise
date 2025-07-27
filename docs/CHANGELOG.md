@@ -143,7 +143,7 @@ Removed
 
 ---
 
-## 0.1.8 - 2025-07-26
+## [0.1.8] - 2025-07-26
 
 ### Added
 
@@ -162,5 +162,26 @@ Removed
 - Refined domain encapsulation: made projectID, userID, fileName private with getters
 - Split responsibilities cleanly across domain, application, handler, and adapters
 - Enforced strict layering between core logic and infrastructure via interfaces
+
+---
+
+## [0.1.9] - 2025-07-27
+
+### Added
+
+- Introduced `DocumentRecord` (GORM model) and persistence mappers to bridge domain <-> DB
+- Added SQLite-backed repository integration test for PostgresDocumentRepository
+- Table-driven tests for `UploadHandler` and domain validation logic
+- Created `DocumentHandler` using Fiber, wired to the application service and user context
+- `FromDomain()` presenter added defensive nil handling and tests
+
+### Changed
+
+- Domain model now uses `DomainBase` instead of GORM-coupled base struct
+- Extracted `GormBase` (with tags) and `DomainBase` (clean) for separation of concerns
+- Renamed repository test to use in-memory SQLite instead of Postgres for speed
+- Enforced stricter invariants on filenames (no slashes, max length, lowercase extensions)
+- Improved handler robustness by parsing `userID` from request context properly
+- Unified mocking and modularized test helpers across layers
 
 ---

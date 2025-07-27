@@ -181,3 +181,41 @@ Frontend app now **successfully fetches backend `/api/ping`** via Cloud Run from
 - Persist embeddings into Neon (PGVector)
 - Add file storage support (GCS or local tmp)
 - Begin `GET /api/projects/:id/documents` route
+
+---
+
+## 📅 2025-07-27 — Persistence Layer + Handler Integration Complete
+
+**Goal:** Build a clean path from HTTP upload → domain → persistence, with test coverage.
+
+### ✅ Progress
+
+- Fully decoupled the GORM model from the domain using a `DocumentRecord` mapper
+- Created `DomainBase` (clean model) vs `GormBase` (with tags) for separation of concerns
+- Wrote integration test for `PostgresDocumentRepository` using in-memory SQLite
+- Created `DocumentHandler.Upload()` with proper user context extraction
+- Wrote full table-driven tests for `UploadHandler`, covering errors and edge cases
+- Added rich filename validation to `domain.Document`, ensuring clean inputs
+
+### 🔍 Refactor Highlights
+
+- Introduced `toRecord()` and `toDomain()` functions in `adapters/`
+- Converted all field validation into the factory, keeping domain clean
+- Simplified test assertions with reusable helpers and mocks
+- Fiber middleware now injects stringified UUIDs for context safety
+
+### 🧪 Test Coverage
+
+- ✅ Domain: constructor invariants and edge cases
+- ✅ Application: service behavior with mocked repo + bus
+- ✅ HTTP Handler: full route simulation with multipart file
+- ✅ Repository: actual DB persistence + GORM mapping
+
+### 🚀 Next Milestone
+
+- Begin chunker_worker: consume `document.uploaded` and extract content
+- Embed text and store in PGVector
+- Add file saving and retrieval via GCS or local FS
+- Start `GET /documents` for project views
+
+---
