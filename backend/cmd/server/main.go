@@ -5,9 +5,14 @@ import (
 	"log"
 	"os"
 
-	"askwise.com/m/v2/internal/document/adapters"
-	"askwise.com/m/v2/internal/document/application"
-	"askwise.com/m/v2/internal/document/handler"
+	doc_adapter "askwise.com/m/v2/internal/document/adapters"
+	doc_app "askwise.com/m/v2/internal/document/application"
+	doc_handler "askwise.com/m/v2/internal/document/handler"
+
+	user_adapter "askwise.com/m/v2/internal/user/adapters"
+	user_app "askwise.com/m/v2/internal/user/application"
+	user_handler "askwise.com/m/v2/internal/user/handler"
+
 	"askwise.com/m/v2/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -41,13 +46,19 @@ func main() {
 		DB:       0,
 	})
 
-	docRepo := adapters.NewPostgresDocumentRepository(db)
+	docRepo := doc_adapter.NewPostgresDocumentRepository(db)
+	userRepo := user_adapter.NewPostgresUserRepository(db)
+
 	eventBus := redisAdapter.NewRedisEventBus(redis)
 
-	docSvc := application.NewDocumentService(docRepo, eventBus)
-	docHandler := handler.NewDocumentHandler(docSvc)
+	docSvc := doc_app.NewDocumentService(docRepo, eventBus)
+	userSvc := user_app.NewUserService(userRepo, eventBus)
+
+	docHandler := doc_handler.NewDocumentHandler(docSvc)
+	userHandler := user_handler.NewUserHandler(userSvc)
 
 	app.Post("/api/projects/:projectID/upload", docHandler.Upload)
+	app.Post("/auth/sync", userHandler.Sync)
 
 	fmt.Printf("Starting server on port %s\n", port)
 	log.Fatal(app.Listen(":" + port))

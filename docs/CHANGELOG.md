@@ -185,3 +185,25 @@ Removed
 - Unified mocking and modularized test helpers across layers
 
 ---
+
+## [0.2.0] - 2025-07-29
+
+### Added
+
+- Introduced `user` module using Hexagonal architecture:
+  - `User` domain model with encapsulated fields (`googleID`, `name`, `email`, `imageURL`)
+  - `UserRecord` GORM struct with mapping functions (`toDomain`, `toRecord`)
+  - `PostgresUserRepository` with methods: `FindByID`, `FindByGoogleID`, `Save`
+  - `UserService.Sync()` handles "create-or-fetch" by Google ID
+  - `UserHandler.Sync()` Fiber handler accepting Google ID and user details
+- Defined presentation DTO (`UserResponse`) with safe field mapping
+- Added `extractBearerToken()` helper for parsing `Authorization` headers
+
+### Changed
+
+- Split base structs:
+  - `DomainBase` (clean, untagged) for domain logic
+  - `GormBase` (with GORM tags) for persistence concerns
+- Wired service-to-handler mapping cleanly through interfaces
+
+---

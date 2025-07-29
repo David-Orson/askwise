@@ -29,14 +29,10 @@ func (h *DocumentHandler) Upload(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(utils.Error("Invalid userID"))
 	}
 
-	fmt.Println("userID:", userID)
-
 	projectID, err := uuid.Parse(c.Params("projectID"))
 	if err != nil {
 		return c.Status(400).JSON(utils.Error("Invalid projectID"))
 	}
-
-	fmt.Println("projectID:", projectID)
 
 	fileHeader, err := c.FormFile("file")
 	if err != nil {
@@ -44,8 +40,6 @@ func (h *DocumentHandler) Upload(c *fiber.Ctx) error {
 	}
 
 	fileName := fileHeader.Filename
-
-	fmt.Println("fileName:", fileName)
 
 	doc, err := h.Service.UploadDocument(c.Context(), projectID, userID, fileName)
 	if err != nil {

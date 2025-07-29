@@ -22,3 +22,19 @@ type DocumentUploadedEvent struct {
 	FileName   string    `json:"file_name"`
 	UploadedAt string    `json:"uploaded_at"`
 }
+
+type UserCreatedEvent struct {
+	UserID   uuid.UUID `json:"user_id"`
+	GoogleID string    `json:"google_id"`
+	Name     string    `json:"name"`
+	Email    string    `json:"email"`
+	ImageURL string    `json:"image_url"`
+}
+
+type UserSignedInEvent struct {
+	UserID   uuid.UUID `json:"user_id"`
+	GoogleID string    `json:"google_id"`
+	Name     string    `json:"name"`
+	Email    string    `json:"email"`
+	ImageURL string    `json:"image_url"`
+}

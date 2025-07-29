@@ -219,3 +219,31 @@ Frontend app now **successfully fetches backend `/api/ping`** via Cloud Run from
 - Start `GET /documents` for project views
 
 ---
+
+## 📅 2025-07-29 — User Sync Module Scaffolded
+
+**Goal:** Establish foundation for user identity based on Google Auth tokens.
+
+### ✅ Progress
+
+- Created full hexagonal module for `user` domain with repository, service, handler, DTO
+- Fiber handler now accepts a Google Bearer token and user metadata to sync identity
+- `UserService.Sync()` ensures user is created or fetched, with proper event publishing
+- `PostgresUserRepository` wired and backed by GORM with domain separation
+- Mapper functions bridge domain ↔ database via `UserRecord`
+
+### 🧩 Features
+
+- Creates new users based on Google ID (used as stable key)
+- Prevents duplicate records using unique `google_id` index
+- Publishes `UserCreated` or `UserSignedIn` events (to Redis, etc.)
+- Presentation layer returns safe and minimal `UserResponse` object
+
+### 🔜 Next Steps
+
+- Middleware: inject userID into context via decoded GoogleID
+- Enforce ownership checks in document routes (user owns project)
+- Define `Project` module to manage access boundaries
+- Subscribe to user events (e.g. analytics, audit logs)
+
+---
